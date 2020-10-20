@@ -313,4 +313,12 @@ VSFTModelTest >> testExample [
 
 	m addJSONAsString: self exampleJSON.
 	self assert: m numberOfSequences equals: 10.
+	
+	self assert: (m sequences allSatisfy: [ :s | s class == VSFTSequence ]).
+	
+	m sequences do: [ :s |
+		self assert: s commands isCollection.
+		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommand ])
+		 ]
+	
 ]

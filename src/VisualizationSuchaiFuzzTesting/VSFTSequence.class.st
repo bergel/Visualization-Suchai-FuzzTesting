@@ -17,6 +17,11 @@ VSFTSequence >> addCommand: aCommand [
 ]
 
 { #category : #accessing }
+VSFTSequence >> commands [
+	^ commands
+]
+
+{ #category : #accessing }
 VSFTSequence >> exitCode [
 	^ exitCode
 ]

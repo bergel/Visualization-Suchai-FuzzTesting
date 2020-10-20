@@ -25,7 +25,7 @@ VSFTModel >> addJSONAsString: aString [
 			ss parameters: (ttt at: 'params').
 			s addCommand: ss.
 		].
-		self addSequence: ss  ]
+		self addSequence: s  ]
 ]
 
 { #category : #adding }
@@ -53,4 +53,10 @@ VSFTModel >> name: aString [
 { #category : #'as yet unclassified' }
 VSFTModel >> numberOfSequences [
 	^ sequences size
+]
+
+{ #category : #accessing }
+VSFTModel >> sequences [
+	"Return the sequences contained in the models"
+	^ sequences
 ]
