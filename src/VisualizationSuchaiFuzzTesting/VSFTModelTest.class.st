@@ -318,7 +318,8 @@ VSFTModelTest >> testExample [
 	
 	m sequences do: [ :s |
 		self assert: s commands isCollection.
-		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommand ])
+		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommand ]).
+		self assert: (s commands allSatisfy: [ :c | c model == m ]).
 		 ]
 	
 ]

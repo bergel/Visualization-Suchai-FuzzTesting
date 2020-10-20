@@ -2,7 +2,8 @@ Class {
 	#name : #VSFTItem,
 	#superclass : #Object,
 	#instVars : [
-		'index'
+		'index',
+		'model'
 	],
 	#category : #VisualizationSuchaiFuzzTesting
 }
@@ -22,4 +23,14 @@ VSFTItem >> initialize [
 	super initialize.
 	"Not set yet"
 	index := -1.
+]
+
+{ #category : #accessing }
+VSFTItem >> model [
+	^ model
+]
+
+{ #category : #accessing }
+VSFTItem >> model: anObject [
+	model := anObject
 ]
