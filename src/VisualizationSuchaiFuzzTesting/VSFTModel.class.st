@@ -30,7 +30,17 @@ VSFTModel >> addJSONAsString: aString [
 
 { #category : #adding }
 VSFTModel >> addSequence: aSequence [
-	sequences add: aSequence
+	sequences add: aSequence.
+	aSequence model: self.
+	aSequence commands do: [ :c | c model: self ]
+]
+
+{ #category : #visualization }
+VSFTModel >> gtInspectorViewIn: composite [
+	<gtInspectorPresentationOrder: -10>
+	composite roassal3
+		title: 'Mem. x Time';
+		initializeCanvas: [ self visualize ]
 ]
 
 { #category : #initialization }
@@ -59,4 +69,15 @@ VSFTModel >> numberOfSequences [
 VSFTModel >> sequences [
 	"Return the sequences contained in the models"
 	^ sequences
+]
+
+{ #category : #'as yet unclassified' }
+VSFTModel >> visualize [
+	| m |
+	m := RSMondrian new.
+	m nodes: self sequences.
+	m normalizeWidth: #totalTime.
+	m normalizeHeight: #realMemory.
+	m build.
+	^ m canvas
 ]
