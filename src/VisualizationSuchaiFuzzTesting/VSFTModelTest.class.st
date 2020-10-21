@@ -349,4 +349,6 @@ VSFTModelTest >> testVisualization [
 
 	m addJSONAsString: self exampleJSON.
 	m visualize.
+	m sequences do: [ :s |
+		s visualize ]
 ]

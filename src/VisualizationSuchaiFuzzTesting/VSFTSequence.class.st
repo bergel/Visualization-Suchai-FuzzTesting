@@ -80,7 +80,7 @@ VSFTSequence >> visualize [
 	| m |
 	m := RSMondrian new.
 	m shape label.
-	m nodes: self commands.
+	m nodes: self commandExecutions.
 	m layout flow.
 	m build.
 	^ m canvas
