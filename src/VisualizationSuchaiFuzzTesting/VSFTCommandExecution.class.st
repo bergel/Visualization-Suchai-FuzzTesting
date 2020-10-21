@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'parameters',
-		'command'
+		'command',
+		'sequence'
 	],
 	#category : #VisualizationSuchaiFuzzTesting
 }
@@ -38,5 +39,20 @@ VSFTCommandExecution >> parameters: someParameters [
 VSFTCommandExecution >> printOn: str [
 	str nextPut: $<.
 	self name ifNotNil: [ str nextPutAll: self name ].
-	str nextPut: $>.
+	str nextPutAll: ' E>'.
+]
+
+{ #category : #accessing }
+VSFTCommandExecution >> sequence [
+	^ sequence
+]
+
+{ #category : #accessing }
+VSFTCommandExecution >> sequence: aSequence [
+	sequence := aSequence
+]
+
+{ #category : #'as yet unclassified' }
+VSFTCommandExecution >> sequenceExitCode [
+	^ sequence exitCode
 ]

@@ -25,6 +25,7 @@ VSFTModel >> addJSONAsString: aString [
 			ss name: (ttt at: 'cmd_name').
 			ss parameters: (ttt at: 'params').
 			s addCommandExecution: ss.
+			ss sequence: s.
 		].
 		self addSequence: s  ].
 	
@@ -62,6 +63,14 @@ VSFTModel >> commands [
 VSFTModel >> exitCodes [
 
 	^ (self sequences collect: #exitCode) asSet
+]
+
+{ #category : #visualization }
+VSFTModel >> gtInspectorViewCommandsIn: composite [
+	<gtInspectorPresentationOrder: -10>
+	composite roassal3
+		title: 'Commands';
+		initializeCanvas: [ self visualizeCommands ]
 ]
 
 { #category : #visualization }
@@ -129,6 +138,34 @@ VSFTModel >> visualize [
 	legend text: 'Each box is a sequence'.
 	legend text: 'Width = total execution time'.
 	legend text: 'Height = real memory'.
+	self exitCodes do: [ :ec |
+		legend text: 'Exit code = ', ec asString withBoxColor: (scale scale: ec).
+	].
+	legend legendDo: [ :l | 
+		l color: Color white.
+		l 
+			withBorder;
+			padding: 20 ].
+	legend onDemand: 'Legend'.
+	legend build.
+	^ m canvas
+]
+
+{ #category : #visualization }
+VSFTModel >> visualizeCommands [
+	| m scale legend |
+	scale := NSScale ordinalColored: self numberOfExitCodes.
+
+	m := RSMondrian new.
+	m shape label
+		color: [ :c | scale scale: c representativeSequenceExitCode ].
+	m nodes: self commands.
+	m layout flow.
+	m build.
+	
+	legend := RSLegend new.
+	legend container: m canvas.
+	legend title: 'List of commands'.
 	self exitCodes do: [ :ec |
 		legend text: 'Exit code = ', ec asString withBoxColor: (scale scale: ec).
 	].

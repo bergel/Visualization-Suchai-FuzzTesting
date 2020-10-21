@@ -338,6 +338,7 @@ VSFTModelTest >> testExample [
 		self assert: s commandExecutions isCollection.
 		self assert: (s commandExecutions allSatisfy: [ :c | c class == VSFTCommandExecution ]).
 		self assert: (s commandExecutions allSatisfy: [ :c | c model == m ]).
+		self assert: (s commandExecutions allSatisfy: [ :c | c sequence == s ]).
 		 ].
 	
 	self assert: m numberOfExitCodes equals: 1.
@@ -349,6 +350,8 @@ VSFTModelTest >> testVisualization [
 
 	m addJSONAsString: self exampleJSON.
 	m visualize.
+	m visualizeCommands.
 	m sequences do: [ :s |
-		s visualize ]
+		s visualize ].
+
 ]
