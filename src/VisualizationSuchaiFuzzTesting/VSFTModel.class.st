@@ -89,7 +89,7 @@ VSFTModel >> visualize [
 	scale := NSScale ordinalColored: self numberOfExitCodes.
 	m := RSMondrian new.
 	m shape color: [ :s | scale scale: s exitCode ].
-	m nodes: self sequences.
+	m nodes: (self sequences sortedAs: #exitCode).
 	m normalizeWidth: #totalTime.
 	m normalizeHeight: #realMemory.
 	m build.
