@@ -24,11 +24,11 @@ VSFTModel >> addJSONAsString: aString [
 			ss index: index2.
 			ss name: (ttt at: 'cmd_name').
 			ss parameters: (ttt at: 'params').
-			s addCommand: ss.
+			s addCommandExecution: ss.
 		].
 		self addSequence: s  ].
 	
-	(sequences flatCollect: #commands) do: [ :ce |
+	(sequences flatCollect: #commandExecutions) do: [ :ce |
 		c := self commandNamed: ce name.
 		c addExecution: ce.
 		ce command: c ]
@@ -38,7 +38,7 @@ VSFTModel >> addJSONAsString: aString [
 VSFTModel >> addSequence: aSequence [
 	sequences add: aSequence.
 	aSequence model: self.
-	aSequence commands do: [ :c | c model: self ]
+	aSequence commandExecutions do: [ :c | c model: self ]
 ]
 
 { #category : #accessing }

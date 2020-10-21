@@ -6,19 +6,19 @@ Class {
 		'realMemory',
 		'totalTime',
 		'virtualMemory',
-		'commands'
+		'commandExecutions'
 	],
 	#category : #VisualizationSuchaiFuzzTesting
 }
 
 { #category : #adding }
-VSFTSequence >> addCommand: aCommand [
-	commands add: aCommand
+VSFTSequence >> addCommandExecution: aCommandExecution [
+	commandExecutions add: aCommandExecution
 ]
 
 { #category : #accessing }
-VSFTSequence >> commands [
-	^ commands
+VSFTSequence >> commandExecutions [
+	^ commandExecutions
 ]
 
 { #category : #accessing }
@@ -42,7 +42,7 @@ VSFTSequence >> gtInspectorViewIn: composite [
 { #category : #initialization }
 VSFTSequence >> initialize [
 	super initialize.
-	commands := OrderedCollection new
+	commandExecutions := OrderedCollection new
 ]
 
 { #category : #accessing }

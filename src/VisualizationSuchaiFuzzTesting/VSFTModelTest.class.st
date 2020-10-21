@@ -335,9 +335,9 @@ VSFTModelTest >> testExample [
 	self assert: (m sequences allSatisfy: [ :s | s class == VSFTSequence ]).
 	
 	m sequences do: [ :s |
-		self assert: s commands isCollection.
-		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommandExecution ]).
-		self assert: (s commands allSatisfy: [ :c | c model == m ]).
+		self assert: s commandExecutions isCollection.
+		self assert: (s commandExecutions allSatisfy: [ :c | c class == VSFTCommandExecution ]).
+		self assert: (s commandExecutions allSatisfy: [ :c | c model == m ]).
 		 ].
 	
 	self assert: m numberOfExitCodes equals: 1.
