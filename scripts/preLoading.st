@@ -1,6 +1,6 @@
 "Removing Roassal3 :V"
 
-packagesRegExp := { '*Roassal3*' }.
+packagesRegExp := { '*Roassal3*' . 'Numeric*' }.
 
 packages := packagesRegExp flatCollect: [ :regExp |
 	RPackageOrganizer default packages
