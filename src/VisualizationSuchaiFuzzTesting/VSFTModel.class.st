@@ -35,6 +35,12 @@ VSFTModel >> addSequence: aSequence [
 	aSequence commands do: [ :c | c model: self ]
 ]
 
+{ #category : #accessing }
+VSFTModel >> exitCodes [
+
+	^ (self sequences collect: #exitCode) asSet
+]
+
 { #category : #visualization }
 VSFTModel >> gtInspectorViewIn: composite [
 	<gtInspectorPresentationOrder: -10>
@@ -60,7 +66,13 @@ VSFTModel >> name: aString [
 	name := aString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+VSFTModel >> numberOfExitCodes [
+
+	^ self exitCodes size
+]
+
+{ #category : #accessing }
 VSFTModel >> numberOfSequences [
 	^ sequences size
 ]
@@ -71,13 +83,32 @@ VSFTModel >> sequences [
 	^ sequences
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visualization }
 VSFTModel >> visualize [
-	| m |
+	| m scale legend |
+	scale := NSScale ordinalColored: self numberOfExitCodes.
 	m := RSMondrian new.
+	m shape color: [ :s | scale scale: s exitCode ].
 	m nodes: self sequences.
 	m normalizeWidth: #totalTime.
 	m normalizeHeight: #realMemory.
 	m build.
+	
+	legend := RSLegend new.
+	legend container: m canvas.
+	legend title: 'Legend'.
+	legend text: 'Each box is a sequence'.
+	legend text: 'Width = total execution time'.
+	legend text: 'Height = real memory'.
+	self exitCodes do: [ :ec |
+		legend text: 'Exit code = ', ec asString withBoxColor: (scale scale: ec).
+	].
+	legend legendDo: [ :l | 
+		l color: Color white.
+		l 
+			withBorder;
+			padding: 20 ].
+	legend onDemand: 'Legend'.
+	legend build.
 	^ m canvas
 ]

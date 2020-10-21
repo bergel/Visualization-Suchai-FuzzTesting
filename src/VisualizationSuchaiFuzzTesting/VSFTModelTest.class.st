@@ -320,6 +320,15 @@ VSFTModelTest >> testExample [
 		self assert: s commands isCollection.
 		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommand ]).
 		self assert: (s commands allSatisfy: [ :c | c model == m ]).
-		 ]
+		 ].
 	
+	self assert: m numberOfExitCodes equals: 1.
+	
+]
+
+{ #category : #tests }
+VSFTModelTest >> testVisualization [
+
+	m addJSONAsString: self exampleJSON.
+	m visualize.
 ]
