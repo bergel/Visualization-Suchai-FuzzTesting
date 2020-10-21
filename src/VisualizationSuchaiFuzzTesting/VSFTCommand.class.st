@@ -3,10 +3,21 @@ Class {
 	#superclass : #VSFTItem,
 	#instVars : [
 		'name',
-		'parameters'
+		'executions'
 	],
 	#category : #VisualizationSuchaiFuzzTesting
 }
+
+{ #category : #adding }
+VSFTCommand >> addExecution: anExecution [
+	executions add: anExecution
+]
+
+{ #category : #initialization }
+VSFTCommand >> initialize [
+	super initialize.
+	executions := OrderedCollection new
+]
 
 { #category : #accessing }
 VSFTCommand >> name [
@@ -14,11 +25,6 @@ VSFTCommand >> name [
 ]
 
 { #category : #accessing }
-VSFTCommand >> name: anObject [
-	name := anObject
-]
-
-{ #category : #accessing }
-VSFTCommand >> parameters: someParameters [
-	parameters := someParameters
+VSFTCommand >> name: aName [
+	name := aName
 ]

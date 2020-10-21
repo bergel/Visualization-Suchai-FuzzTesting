@@ -31,6 +31,14 @@ VSFTSequence >> exitCode: aNumber [
 	exitCode := aNumber
 ]
 
+{ #category : #visualization }
+VSFTSequence >> gtInspectorViewIn: composite [
+	<gtInspectorPresentationOrder: -10>
+	composite roassal3
+		title: 'Commands';
+		initializeCanvas: [ self visualize ]
+]
+
 { #category : #initialization }
 VSFTSequence >> initialize [
 	super initialize.
@@ -65,4 +73,15 @@ VSFTSequence >> virtualMemory [
 { #category : #accessing }
 VSFTSequence >> virtualMemory: aNumber [
 	virtualMemory := aNumber
+]
+
+{ #category : #visualization }
+VSFTSequence >> visualize [
+	| m |
+	m := RSMondrian new.
+	m shape label.
+	m nodes: self commands.
+	m layout flow.
+	m build.
+	^ m canvas
 ]

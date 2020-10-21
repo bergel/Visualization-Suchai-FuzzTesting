@@ -3,14 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'sequences'
+		'sequences',
+		'commands'
 	],
 	#category : #VisualizationSuchaiFuzzTesting
 }
 
 { #category : #adding }
 VSFTModel >> addJSONAsString: aString [
-	| t s ss |
+	| t s ss c |
 	t := NeoJSONReader fromString: aString.
 	t doWithIndex: [ :tt :index |
 		s := VSFTSequence new index: index.
@@ -19,13 +20,18 @@ VSFTModel >> addJSONAsString: aString [
 		s totalTime: (tt at: 'total time (s)').
 		s virtualMemory: (tt at: 'virtual memory (kb)').
 		(tt at: 'cmds') doWithIndex: [ :ttt :index2 |
-			ss := VSFTCommand new.
+			ss := VSFTCommandExecution new.
 			ss index: index2.
 			ss name: (ttt at: 'cmd_name').
 			ss parameters: (ttt at: 'params').
 			s addCommand: ss.
 		].
-		self addSequence: s  ]
+		self addSequence: s  ].
+	
+	(sequences flatCollect: #commands) do: [ :ce |
+		c := self commandNamed: ce name.
+		c addExecution: ce.
+		ce command: c ]
 ]
 
 { #category : #adding }
@@ -33,6 +39,23 @@ VSFTModel >> addSequence: aSequence [
 	sequences add: aSequence.
 	aSequence model: self.
 	aSequence commands do: [ :c | c model: self ]
+]
+
+{ #category : #accessing }
+VSFTModel >> commandNamed: aName [
+	| c |
+	c := commands detect: [ :cc | cc name = aName ] ifNone: [ nil ].
+	c ifNotNil: [ ^ c ].
+	
+	c := VSFTCommand new name: aName.
+	commands add: c.
+	^ c
+	
+]
+
+{ #category : #accessing }
+VSFTModel >> commands [
+	^ commands
 ]
 
 { #category : #accessing }
@@ -53,7 +76,8 @@ VSFTModel >> gtInspectorViewIn: composite [
 VSFTModel >> initialize [
 	super initialize.
 	self name: 'UNNAMED'.
-	sequences := OrderedCollection new
+	sequences := OrderedCollection new.
+	commands := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -64,6 +88,11 @@ VSFTModel >> name [
 { #category : #accessing }
 VSFTModel >> name: aString [
 	name := aString
+]
+
+{ #category : #accessing }
+VSFTModel >> numberOfCommands [
+	^ commands size
 ]
 
 { #category : #accessing }

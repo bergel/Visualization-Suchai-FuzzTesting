@@ -303,9 +303,27 @@ VSFTModelTest >> setUp [
 ]
 
 { #category : #tests }
+VSFTModelTest >> testCommand [
+
+	| c c2 |
+	self assert: m numberOfCommands equals: 0.
+	c := m commandNamed: 'Foobar'.
+	self assert: c name equals: 'Foobar'.
+	self assert: m numberOfCommands equals: 1.
+	
+	c2 := m commandNamed: 'Foobar'.
+	self assert: c equals: c2.
+	self assert: m numberOfCommands equals: 1.
+	
+	m commandNamed: 'Foobar2'.
+	self assert: m numberOfCommands equals: 2.
+]
+
+{ #category : #tests }
 VSFTModelTest >> testEmpty [
 	self assert: m name equals: 'UNNAMED'.
-	self assert: m numberOfSequences equals: 0
+	self assert: m numberOfSequences equals: 0.
+	self assert: m numberOfCommands equals: 0.
 ]
 
 { #category : #tests }
@@ -318,12 +336,12 @@ VSFTModelTest >> testExample [
 	
 	m sequences do: [ :s |
 		self assert: s commands isCollection.
-		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommand ]).
+		self assert: (s commands allSatisfy: [ :c | c class == VSFTCommandExecution ]).
 		self assert: (s commands allSatisfy: [ :c | c model == m ]).
 		 ].
 	
 	self assert: m numberOfExitCodes equals: 1.
-	
+	self assert: m numberOfCommands equals: 48.
 ]
 
 { #category : #tests }
