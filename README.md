@@ -4,6 +4,6 @@
 ```Smalltalk
 Metacello new
     baseline: 'VisualizationSuchaiFuzzTesting';
-    repository: 'github://bergel/Visualization-Suchai-FuzzTesting';
+    repository: 'github://bergel/Visualization-Suchai-FuzzTesting:main';
     load.
 ```
