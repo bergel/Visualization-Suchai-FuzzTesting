@@ -4,12 +4,12 @@ Class {
 	#category : #VisualizationSuchaiFuzzTesting
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #public }
 VSFTExample >> rootFolder [
 	^ '/Users/alexandrebergel/Dropbox/GitRepos/Visualization-Suchai-FuzzTesting/data/'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #public }
 VSFTExample >> strategy1 [
 	<script: 'self new strategy1 inspect'>
 	| children m |
